@@ -4,6 +4,7 @@ import { cn } from "@workspace/ui/lib/utils"
 
 import { CategorySidebar } from "@/components/category-sidebar"
 import { CurvedLoop } from "@/components/curved-loop"
+import { Grainient } from "@/components/grainient"
 import { categories, sites, type Site } from "@/data/sites"
 
 const ALL = "All"
@@ -65,26 +66,31 @@ export function SiteIndex() {
   const normalizedQuery = query.trim().toLowerCase()
 
   const groups = React.useMemo(() => {
-    let num = 0
+    const visible = categories
+      .filter((group) => category === ALL || category === group.label)
+      .map((group) => ({
+        label: group.label,
+        sites: group.sites.filter((site) => matchesQuery(site, normalizedQuery)),
+      }))
+      .filter((group) => group.sites.length > 0)
 
-    return categories.reduce<Group[]>((accumulated, group) => {
-      if (category !== ALL && category !== group.label) {
-        return accumulated
-      }
+    // Rows are numbered across the whole filtered index rather than per
+    // section, so each group needs the running total of the ones before it.
+    const offsets = visible.reduce<number[]>(
+      (accumulated, group) => [
+        ...accumulated,
+        accumulated[accumulated.length - 1] + group.sites.length,
+      ],
+      [0]
+    )
 
-      const matches = group.sites
-        .filter((site) => matchesQuery(site, normalizedQuery))
-        .map((site) => {
-          num += 1
-          return { ...site, num: pad(num) }
-        })
-
-      if (matches.length === 0) {
-        return accumulated
-      }
-
-      return [...accumulated, { label: group.label, sites: matches }]
-    }, [])
+    return visible.map<Group>((group, groupIndex) => ({
+      label: group.label,
+      sites: group.sites.map((site, index) => ({
+        ...site,
+        num: pad(offsets[groupIndex] + index + 1),
+      })),
+    }))
   }, [category, normalizedQuery])
 
   const chips = [
@@ -96,7 +102,38 @@ export function SiteIndex() {
   ]
 
   return (
-    <div className="min-h-svh bg-background bg-[radial-gradient(var(--faint)_1px,transparent_1px)] bg-[size:22px_22px] text-foreground">
+    <div className="isolate min-h-svh bg-background text-foreground">
+      {/* Backdrop. `isolate` on the wrapper is what makes `-z-10` land above
+          the page background rather than behind it, and the low opacity keeps
+          body copy legible on top. */}
+      <div aria-hidden className="pointer-events-none fixed inset-0 -z-10">
+        <Grainient
+          color1="#6eedc3"
+          color2="#39794e"
+          color3="#cfa597"
+          timeSpeed={0.4}
+          colorBalance={0}
+          warpStrength={1}
+          warpFrequency={5}
+          warpSpeed={2}
+          warpAmplitude={50}
+          blendAngle={0}
+          blendSoftness={0}
+          rotationAmount={720}
+          noiseScale={2}
+          grainAmount={0.1}
+          grainScale={2}
+          grainAnimated={false}
+          contrast={1.5}
+          gamma={1}
+          saturation={1}
+          centerX={0}
+          centerY={0}
+          zoom={0.9}
+          className="opacity-40"
+        />
+      </div>
+
       <CategorySidebar
         items={chips.map((chip) => chip.label)}
         active={category}
@@ -105,15 +142,23 @@ export function SiteIndex() {
 
       <div className="mx-auto flex max-w-[920px] flex-col gap-12 px-8 pt-18 pb-30">
         <header className="flex flex-col gap-[22px]">
-          <div className="flex items-baseline justify-between gap-5 font-mono text-[11px] tracking-[0.14em] text-muted-foreground uppercase">
-            <span>Personal index</span>
-            <span>{pad(sites.length)} entries</span>
+          {/* `items-end` sits the count on the bottom of the title block —
+              `items-baseline` would pin it to the *first* line instead. */}
+          <div className="flex items-end justify-between gap-5">
+            <h1 className="text-[clamp(3rem,13vw,70px)] leading-[0.92] font-bold tracking-[-0.045em]">
+              Useful
+              <br />
+              <span className="text-brand italic">sites</span>
+            </h1>
+            <span className="flex items-baseline gap-2 text-dim">
+              <span className="text-[clamp(1.75rem,7vw,38px)] leading-[0.92] font-bold tracking-[-0.045em]">
+                {pad(sites.length)}
+              </span>
+              <span className="font-mono text-[11px] tracking-[0.14em] uppercase">
+                entries
+              </span>
+            </span>
           </div>
-          <h1 className="text-[clamp(3rem,13vw,70px)] leading-[0.92] font-bold tracking-[-0.045em]">
-            Useful
-            <br />
-            <span className="text-brand italic">sites</span>
-          </h1>
           <div className="h-px bg-gradient-to-r from-border to-transparent" />
         </header>
 
@@ -153,7 +198,7 @@ export function SiteIndex() {
                     "inline-flex cursor-pointer items-center gap-2 rounded-[6px] border px-3 py-1.5 font-mono text-[11px] tracking-[0.08em] uppercase transition-all",
                     active
                       ? "border-brand bg-brand text-background"
-                      : "border-border bg-transparent text-muted-foreground hover:border-dim hover:text-foreground"
+                      : "border-border bg-transparent text-muted-foreground hover:border-dim hover:bg-foreground/[0.045] hover:text-foreground"
                   )}
                 >
                   <span>{chip.label}</span>
@@ -183,7 +228,9 @@ export function SiteIndex() {
                   href={site.url}
                   target="_blank"
                   rel="noreferrer"
-                  className="-mx-3.5 grid grid-cols-[44px_1fr_auto] items-baseline gap-[18px] rounded-[4px] border-b border-faint py-4 pr-3.5 pl-2.5 transition-colors outline-none hover:bg-card focus-visible:ring-2 focus-visible:ring-ring"
+                  // A translucent tint rather than `bg-card`: an opaque fill
+                  // would read as a patch cut out of the gradient behind it.
+                  className="group -mx-3.5 grid grid-cols-[44px_1fr_auto] items-baseline gap-[18px] rounded-[4px] border-b border-faint py-4 pr-3.5 pl-2.5 transition-colors outline-none hover:border-dim hover:bg-foreground/[0.045] focus-visible:ring-2 focus-visible:ring-ring"
                 >
                   <span className="font-mono text-[11px] text-dim">
                     {site.num}
@@ -201,7 +248,9 @@ export function SiteIndex() {
                       {site.note}
                     </span>
                   </span>
-                  <span className="font-mono text-xs text-brand">↗</span>
+                  <span className="font-mono text-xs text-dim transition duration-200 group-hover:-translate-y-px group-hover:translate-x-px group-hover:text-brand motion-reduce:transition-none">
+                    ↗
+                  </span>
                 </a>
               ))}
             </section>

@@ -59,7 +59,8 @@
   --color-foreground: var(--foreground);
   --color-background: var(--background);
   /* Brand accent, plus the two hairline greys the index leans on:
-       `faint` for row rules and the dot grid, `dim` for metadata. */
+       `faint` for row rules, `dim` for metadata. Both carry the same green
+       cast as the Grainient backdrop so they read as one palette. */
   --color-brand: var(--brand);
   --color-faint: var(--faint);
   --color-dim: var(--dim);
@@ -74,83 +75,56 @@
   --font-mono: "Geist Mono Variable", ui-monospace, monospace;
 }
 
-/* Light — "Paper" */
+/* The one theme — "Sage paper". There is no dark mode: the Grainient
+   backdrop is tuned for this palette only. */
 :root {
   color-scheme: light;
-  --background: #faf7f2;
-  --foreground: #1c1a17;
-  --card: #f1ece3;
-  --card-foreground: #1c1a17;
-  --popover: #f1ece3;
-  --popover-foreground: #1c1a17;
-  --primary: #1c1a17;
-  --primary-foreground: #faf7f2;
-  --secondary: #f1ece3;
-  --secondary-foreground: #1c1a17;
-  --muted: #f1ece3;
-  --muted-foreground: #6b645a;
-  --accent: #f1ece3;
-  --accent-foreground: #1c1a17;
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: #ddd5c8;
-  --input: #ddd5c8;
-  --ring: #7fa88a;
-  --brand: #7fa88a;
-  --faint: #e8e2d7;
-  --dim: #989083;
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
-  --sidebar: #f1ece3;
-  --sidebar-foreground: #1c1a17;
-  --sidebar-primary: #1c1a17;
-  --sidebar-primary-foreground: #faf7f2;
-  --sidebar-accent: #e8e2d7;
-  --sidebar-accent-foreground: #1c1a17;
-  --sidebar-border: #ddd5c8;
-  --sidebar-ring: #7fa88a;
-}
 
-/* Dark — "Slate" */
-.dark {
-  color-scheme: dark;
-  --background: #0e1113;
-  --foreground: #e6edf0;
-  --card: #161a1d;
-  --card-foreground: #e6edf0;
-  --popover: #161a1d;
-  --popover-foreground: #e6edf0;
-  --primary: #e6edf0;
-  --primary-foreground: #0e1113;
-  --secondary: #161a1d;
-  --secondary-foreground: #e6edf0;
-  --muted: #161a1d;
-  --muted-foreground: #98a4aa;
-  --accent: #161a1d;
-  --accent-foreground: #e6edf0;
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: #2c3438;
-  --input: #2c3438;
-  --ring: #7fa88a;
-  --brand: #7fa88a;
-  --faint: #1c2124;
-  --dim: #5f6b70;
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: #161a1d;
-  --sidebar-foreground: #e6edf0;
-  --sidebar-primary: #e6edf0;
-  --sidebar-primary-foreground: #0e1113;
-  --sidebar-accent: #1c2124;
-  --sidebar-accent-foreground: #e6edf0;
-  --sidebar-border: #2c3438;
-  --sidebar-ring: #7fa88a;
+  /* One ramp, one hue. Every "neutral" here is a sage at hue 155 with real
+     chroma — a true grey next to the Grainient backdrop reads as a mistake,
+     so nothing in the palette is allowed to sit at chroma 0. */
+  --sage-95: oklch(0.965 0.016 155);
+  --sage-88: oklch(0.905 0.026 155);
+  --sage-82: oklch(0.845 0.034 155);
+  --sage-60: oklch(0.605 0.052 155);
+  --sage-45: oklch(0.455 0.048 155);
+  --sage-20: oklch(0.235 0.038 155);
+
+  --background: var(--sage-95);
+  --foreground: var(--sage-20);
+  --card: var(--sage-88);
+  --card-foreground: var(--sage-20);
+  --popover: var(--sage-88);
+  --popover-foreground: var(--sage-20);
+  --primary: var(--sage-20);
+  --primary-foreground: var(--sage-95);
+  --secondary: var(--sage-88);
+  --secondary-foreground: var(--sage-20);
+  --muted: var(--sage-88);
+  --muted-foreground: var(--sage-45);
+  --accent: var(--sage-88);
+  --accent-foreground: var(--sage-20);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: var(--sage-82);
+  --input: var(--sage-82);
+  --ring: oklch(0.52 0.096 158);
+  --brand: oklch(0.52 0.096 158);
+  --faint: var(--sage-88);
+  --dim: var(--sage-60);
+  --chart-1: oklch(0.87 0.02 155);
+  --chart-2: oklch(0.72 0.05 155);
+  --chart-3: oklch(0.6 0.07 155);
+  --chart-4: oklch(0.46 0.075 155);
+  --chart-5: oklch(0.34 0.06 155);
+  --radius: 0.625rem;
+  --sidebar: var(--sage-88);
+  --sidebar-foreground: var(--sage-20);
+  --sidebar-primary: var(--sage-20);
+  --sidebar-primary-foreground: var(--sage-95);
+  --sidebar-accent: var(--sage-82);
+  --sidebar-accent-foreground: var(--sage-20);
+  --sidebar-border: var(--sage-82);
+  --sidebar-ring: oklch(0.52 0.096 158);
 }
 
 @layer base {
