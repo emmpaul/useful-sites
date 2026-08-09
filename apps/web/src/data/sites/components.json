@@ -1,0 +1,13 @@
+{
+  "$schema": "../site-category.schema.json",
+  "id": "components",
+  "label": "Components",
+  "order": 30,
+  "sites": [
+    {
+      "title": "React Bits",
+      "url": "https://reactbits.dev/",
+      "note": "Animated React components — text effects, backgrounds and micro-interactions you copy in as source rather than install."
+    }
+  ]
+}
