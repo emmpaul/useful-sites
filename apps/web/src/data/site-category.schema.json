@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "title": "Site category",
+  "description": "One category of the useful-sites index. Every *.json file in ./sites/ is one of these.",
+  "type": "object",
+  "required": ["id", "label", "sites"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "description": "Stable slug. Should match the filename."
+    },
+    "label": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Heading shown above the group."
+    },
+    "order": {
+      "type": "integer",
+      "description": "Sort position among categories. Lower comes first. Defaults to 100; ties break alphabetically by label."
+    },
+    "sites": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["title", "url", "note"],
+        "additionalProperties": false,
+        "properties": {
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "pattern": "^https?://"
+          },
+          "note": {
+            "type": "string",
+            "minLength": 1,
+            "description": "One line on why this is worth keeping."
+          }
+        }
+      }
+    }
+  }
+}

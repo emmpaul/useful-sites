@@ -1,0 +1,13 @@
+{
+  "$schema": "../site-category.schema.json",
+  "id": "fonts",
+  "label": "Fonts",
+  "order": 10,
+  "sites": [
+    {
+      "title": "Fontshare",
+      "url": "https://fontshare.com/",
+      "note": "Free, professionally made typefaces — the quality bar sits well above the usual free-font dumps."
+    }
+  ]
+}

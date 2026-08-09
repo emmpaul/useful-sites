@@ -1,0 +1,13 @@
+{
+  "$schema": "../site-category.schema.json",
+  "id": "loaders",
+  "label": "Loaders",
+  "order": 20,
+  "sites": [
+    {
+      "title": "Dotmatrix",
+      "url": "https://dotmatrix.zzzzshawn.cloud/",
+      "note": "Dot-matrix loaders and spinning animations you can lift straight into a project."
+    }
+  ]
+}
