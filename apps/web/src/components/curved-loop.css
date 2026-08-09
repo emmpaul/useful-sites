@@ -1,0 +1,23 @@
+.curved-loop-jacket {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.curved-loop-svg {
+  width: 100%;
+  aspect-ratio: 100 / 12;
+  overflow: visible;
+  display: block;
+  font-size: 6rem;
+  /* Inherit the color set on the wrapper so the band follows the theme. */
+  fill: currentColor;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+}

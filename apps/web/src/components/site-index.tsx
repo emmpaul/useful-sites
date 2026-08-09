@@ -3,6 +3,7 @@ import * as React from "react"
 import { cn } from "@workspace/ui/lib/utils"
 
 import { CategorySidebar } from "@/components/category-sidebar"
+import { CurvedLoop } from "@/components/curved-loop"
 import { categories, sites, type Site } from "@/data/sites"
 
 const ALL = "All"
@@ -213,6 +214,16 @@ export function SiteIndex() {
           </div>
         )}
       </div>
+
+      {/* Full-bleed sign-off. `overflow-x-clip` keeps the path, which runs
+          wider than the viewBox, from adding a horizontal scrollbar. */}
+      <footer className="overflow-x-clip pb-24 text-border select-none">
+        <CurvedLoop
+          marqueeText="Sites worth keeping ✦"
+          speed={0.6}
+          curveAmount={220}
+        />
+      </footer>
     </div>
   )
 }
