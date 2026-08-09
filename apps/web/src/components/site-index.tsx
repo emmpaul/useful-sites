@@ -2,6 +2,7 @@ import * as React from "react"
 
 import { cn } from "@workspace/ui/lib/utils"
 
+import { CategorySidebar } from "@/components/category-sidebar"
 import { categories, sites, type Site } from "@/data/sites"
 
 const ALL = "All"
@@ -95,6 +96,12 @@ export function SiteIndex() {
 
   return (
     <div className="min-h-svh bg-background bg-[radial-gradient(var(--faint)_1px,transparent_1px)] bg-[size:22px_22px] text-foreground">
+      <CategorySidebar
+        items={chips.map((chip) => chip.label)}
+        active={category}
+        onSelect={setCategory}
+      />
+
       <div className="mx-auto flex max-w-[920px] flex-col gap-12 px-8 pt-18 pb-30">
         <header className="flex flex-col gap-[22px]">
           <div className="flex items-baseline justify-between gap-5 font-mono text-[11px] tracking-[0.14em] text-muted-foreground uppercase">
@@ -129,7 +136,9 @@ export function SiteIndex() {
             <span className="font-mono text-[11px] text-dim">⌘K</span>
           </div>
 
-          <div className="flex flex-wrap gap-1.5">
+          {/* Below `lg` the sidebar has no room, so the chips are the only way
+              to switch category; above it the sidebar takes over. */}
+          <div className="flex flex-wrap gap-1.5 lg:hidden">
             {chips.map((chip) => {
               const active = category === chip.label
 
