@@ -18,6 +18,36 @@
       "title": "Intent UI",
       "url": "https://intentui.com/",
       "note": "Accessible React components on React Aria and Tailwind, copied into the project shadcn-style."
+    },
+    {
+      "title": "Heroicons Animated",
+      "url": "https://www.heroicons-animated.com/",
+      "note": "Heroicons with Motion-driven animations, installed from npm or added through the shadcn CLI."
+    },
+    {
+      "title": "Logoforge",
+      "url": "https://logoforge.terravidhal.me/",
+      "note": "SVG logos for dev tools and brands — copy the raw SVG or pull typed React components in through the shadcn CLI."
+    },
+    {
+      "title": "Flagcn",
+      "url": "https://flagcn.dev/",
+      "note": "Flags plus country, phone, language and currency pickers for React, added as editable source via the shadcn CLI."
+    },
+    {
+      "title": "shadcnmaps",
+      "url": "https://www.shadcnmaps.com/",
+      "note": "Interactive SVG map components for React, with region selection and keyboard navigation."
+    },
+    {
+      "title": "seamui",
+      "url": "https://seamui.dev/",
+      "note": "shadcn-style components on Base UI with a Motion layer for springs, touch feedback and depth."
+    },
+    {
+      "title": "Remocn",
+      "url": "https://remocn.dev/",
+      "note": "Motion components, shaders and icons an AI coding agent assembles into product demo videos."
     }
   ]
 }
