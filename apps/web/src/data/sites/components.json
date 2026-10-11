@@ -8,6 +8,16 @@
       "title": "React Bits",
       "url": "https://reactbits.dev/",
       "note": "Animated React components — text effects, backgrounds and micro-interactions you copy in as source rather than install."
+    },
+    {
+      "title": "Lucide Animated",
+      "url": "https://lucide-animated.com/",
+      "note": "Lucide icons with hover animations built on Motion, added to a React project through the shadcn CLI."
+    },
+    {
+      "title": "Intent UI",
+      "url": "https://intentui.com/",
+      "note": "Accessible React components on React Aria and Tailwind, copied into the project shadcn-style."
     }
   ]
 }
