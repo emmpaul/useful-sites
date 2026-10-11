@@ -1,0 +1,13 @@
+{
+  "$schema": "../site-category.schema.json",
+  "id": "directories",
+  "label": "Directories",
+  "order": 40,
+  "sites": [
+    {
+      "title": "Stealth",
+      "url": "https://www.stealth.pm/",
+      "note": "Hand-kept catalog of design-engineer resources — components, agent skills, motion and color tools."
+    }
+  ]
+}
